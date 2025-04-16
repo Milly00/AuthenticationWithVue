@@ -25,16 +25,28 @@
         </div>
       </div>
       <div>
-        <button type="button" class="btn btn-success mt-2">Success</button>
+        <button @click.prevent="auth()" type="button" class="btn btn-success mt-2">Success</button>
       </div>
     </form>
   </div>
 </template>
 <script lang="ts" setup>
+import AuthServices from "@/services/AuthService";
 import { ref } from "vue";
 
 let email = ref("");
 let password = ref("");
+
+const auth = async () => {
+  const services = new AuthServices();
+  const success = await services.login(email.value, password.value);
+
+  if (success) {
+    alert("Exito");
+  } else {
+    alert("Login Incorrecto");
+  }
+};
 </script>
 
 <style></style>
